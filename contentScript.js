@@ -1,9 +1,9 @@
-var port = chrome.runtime.connect({name: "spotifySource"});
-port.postMessage({action: "openConnection"});
-port.onMessage.addListener(function(msg) {
-	if (msg.action == "getSource"){
-		var html = document.documentElement.outerHTML;		
-		port.postMessage({action: "deliverSource", source: html});
-	}
-});
 
+
+chrome.runtime.onMessage.addListener(
+	function(request, sender, sendResponse) {
+		//var html = document.documentElement.outerHTML;
+		var forwardButton = document.getElementsByClassName("spoticon-skip-forward-16");		
+		sendResponse(forwardButton[0].outerHTML);
+	}
+);
